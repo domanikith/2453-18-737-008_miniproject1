@@ -50,6 +50,14 @@ app.get('/hospitaldetails', middleware.checkToken,function(req, res) {
     .find({'name':new RegExp(name,'i')}).toArray().then(result=>res.json(result));
 });
 
+//get hospital details by name
+app.post('/searchhospital', middleware.checkToken, (req, res) => {
+    const name = req.query.name;
+    console.log(name);
+    const ventilatordeatils = db.collection('HospitalDetails')
+        .find({ 'name': new RegExp(name, 'i') }).toArray().then(result => res.json(result));
+});
+
 //add ventilator
 app.post('/addventilator', middleware.checkToken,(req,res)=>{
     var hId=req.body.hId;
